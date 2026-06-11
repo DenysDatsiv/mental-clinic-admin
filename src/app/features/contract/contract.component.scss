@@ -1,0 +1,61 @@
+.page {
+  display: flex;
+  padding: 0 1rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+}
+
+.last-saved {
+  font-size: 0.78rem;
+  color: #8a8fa8;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8a8fa8;
+  padding: 2rem 0;
+}
+
+.editor-wrap {
+  flex: 1;
+
+  ::ng-deep .p-editor-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+  }
+
+  ::ng-deep .p-editor-content {
+    flex: 1;
+  }
+
+  ::ng-deep .ql-editor {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+  }
+}
