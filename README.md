@@ -49,11 +49,20 @@ Build artifacts are output to `dist/`.
 
 ## Environment
 
-Copy `src/environments/environment.ts` and configure the API URL:
+Environment variables are managed via `.env` files (locally) and Vercel environment variables (production). Variables must be prefixed with `NG_APP_`.
 
-```ts
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api',
-};
+Create `.env` in the project root for local development:
+
 ```
+NG_APP_API_URL=https://mental-clinic-be.onrender.com/api
+NG_APP_FE_URL=http://localhost:4200
+```
+
+On Vercel, add the same keys under **Project → Settings → Environment Variables**:
+
+| Variable | Description |
+|---|---|
+| `NG_APP_API_URL` | Backend API base URL |
+| `NG_APP_FE_URL` | Frontend public URL |
+
+`.env` files are git-ignored and must never be committed.
