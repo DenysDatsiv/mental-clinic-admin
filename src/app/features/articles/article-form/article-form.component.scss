@@ -59,6 +59,10 @@
   grid-template-columns: 1fr 300px;
   gap: 24px;
   align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .form-main { display: flex; flex-direction: column; gap: 20px; }
@@ -68,7 +72,16 @@
   label { font-size: 13px; font-weight: 500; color: #374151; }
 }
 
-.form-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.form-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 900px) and (min-width: 560px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
 .sidebar-card {
   background: #fff;
@@ -239,6 +252,11 @@
   display: flex;
   gap: 8px;
   margin-bottom: 6px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
 
 .media-btn {
@@ -254,6 +272,8 @@
   color: #374151;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
 
   &:hover {
     border-color: #6366f1;

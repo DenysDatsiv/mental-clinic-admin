@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, EventEmitter, HostBinding, inject, Input, Output, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
@@ -25,7 +25,8 @@ interface NavItem {
       </div>
       <nav>
         @for (item of items; track item.route) {
-          <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+          <a [routerLink]="item.route" routerLinkActive="active" class="nav-item"
+             (click)="closeRequest.emit()">
             <i [class]="'pi ' + item.icon"></i>
             <span>{{ item.label }}</span>
           </a>
@@ -60,6 +61,10 @@ interface NavItem {
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+  @Input() open = false;
+  @Output() closeRequest = new EventEmitter<void>();
+  @HostBinding('class.is-open') get isOpen() { return this.open; }
+
   private auth = inject(AuthService);
   showLogout   = signal(false);
 

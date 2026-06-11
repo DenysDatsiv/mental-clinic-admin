@@ -208,6 +208,25 @@ nav {
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+// ── Mobile drawer ─────────────────────────────────────────────
+@media (max-width: 768px) {
+  :host {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh !important;
+    width: 240px;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 200;
+  }
+
+  :host.is-open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+  }
+}
+
 // ─────────────────────────────────────────────────────────────
 
 .nav-item {

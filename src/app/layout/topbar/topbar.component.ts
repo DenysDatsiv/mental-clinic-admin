@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, EventEmitter, inject, computed, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
@@ -11,6 +11,9 @@ import { AuthService } from '../../core/services/auth.service';
   template: `
     <header class="topbar">
       <div class="topbar-left">
+        <button class="menu-toggle" (click)="toggleSidebar.emit()" aria-label="Меню">
+          <i class="pi pi-bars"></i>
+        </button>
         <span class="page-title">Панель адміністратора</span>
       </div>
       <div class="topbar-right">
@@ -27,6 +30,8 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './topbar.component.scss',
 })
 export class TopbarComponent {
+  @Output() toggleSidebar = new EventEmitter<void>();
+
   auth = inject(AuthService);
 
   initials = computed(() => {

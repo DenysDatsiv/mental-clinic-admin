@@ -59,6 +59,18 @@ body {
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
 }
 
+/* ── Responsive page padding ──────────────────────────────── */
+@media (max-width: 640px) {
+  .page,
+  .dashboard { padding: 16px !important; }
+
+  .page-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    h2 { font-size: 18px !important; }
+  }
+}
+
 /* Button */
 .p-button { border-radius: 8px; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; }
 .p-button-primary, .p-button:not(.p-button-secondary):not(.p-button-success):not(.p-button-warning):not(.p-button-danger):not(.p-button-info) {

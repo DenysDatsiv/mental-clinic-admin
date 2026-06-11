@@ -35,6 +35,10 @@ $heading: #003168;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 20px;
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .field {
