@@ -141,12 +141,41 @@
                   <input pInputText [(ngModel)]="q.example" class="w-full" />
                 </div>
                 <div class="field">
-                  <label>Відповіді та значення</label>
-                  <textarea pTextarea rows="5" class="w-full"
-                            [ngModel]="answerPairs(q)"
-                            (ngModelChange)="setAnswerPairs(q, $event)"
-                            placeholder="Ніколи,0&#10;Іноді,1&#10;Часто,2&#10;Завжди,3"></textarea>
-                  <small class="pairs-hint">Кожен рядок: <strong>відповідь,значення</strong> — наприклад <code>Ніколи,0</code></small>
+                  <div class="answers-header">
+                    <label>Відповіді та значення</label>
+                    <button class="answer-add-btn" type="button" (click)="addAnswer(q)">
+                      <i class="pi pi-plus"></i> Додати
+                    </button>
+                  </div>
+                  @if (q.labelText?.length) {
+                    <div class="answer-table-head">
+                      <span class="acol-num"></span>
+                      <span class="acol-label">Відповідь</span>
+                      <span class="acol-value">Значення</span>
+                      <span class="acol-del"></span>
+                    </div>
+                  }
+                  <div class="answer-rows">
+                    @for (label of q.labelText; track $index) {
+                      <div class="answer-row">
+                        <span class="answer-num">{{ $index + 1 }}</span>
+                        <input class="answer-input" type="text"
+                               [value]="label"
+                               (input)="q.labelText![$index] = $any($event.target).value"
+                               placeholder="Текст відповіді" />
+                        <input class="answer-value-input" type="number"
+                               [value]="q.value?.[$index] ?? 0"
+                               (input)="q.value![$index] = +$any($event.target).value"
+                               placeholder="0" />
+                        <button class="answer-remove" type="button" (click)="removeAnswer(q, $index)">
+                          <i class="pi pi-trash"></i>
+                        </button>
+                      </div>
+                    }
+                  </div>
+                  @if (!q.labelText?.length) {
+                    <p class="empty-hint" style="padding: 12px 0">Відповідей ще немає.</p>
+                  }
                 </div>
                 <p-button label="Видалити" icon="pi pi-trash" severity="danger"
                           size="small" [text]="true" (onClick)="removeQuestion($index)" />

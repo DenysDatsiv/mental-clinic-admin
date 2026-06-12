@@ -109,17 +109,14 @@ export class TestFormComponent implements OnInit {
     interp.range = [interp.range[0], val === '' ? null : Number(val)];
   }
 
-  // Returns lines like "Ніколи,0"
-  answerPairs(q: Question): string {
-    const labels = q.labelText ?? [];
-    const values = q.value ?? [];
-    return labels.map((l, i) => `${l},${values[i] ?? ''}`).join('\n');
+  addAnswer(q: Question) {
+    q.labelText = [...(q.labelText ?? []), ''];
+    q.value     = [...(q.value ?? []), 0];
   }
 
-  setAnswerPairs(q: Question, raw: string) {
-    const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-    q.labelText = lines.map(l => l.split(',')[0]?.trim() ?? '');
-    q.value     = lines.map(l => Number((l.split(',')[1] ?? '0').trim()));
+  removeAnswer(q: Question, i: number) {
+    q.labelText = q.labelText!.filter((_, idx) => idx !== i);
+    q.value     = q.value!.filter((_, idx) => idx !== i);
   }
 
   save() {
