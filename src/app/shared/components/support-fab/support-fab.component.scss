@@ -45,6 +45,28 @@
 
 .fab-label { line-height: 1; }
 
+@media (max-width: 768px) {
+  :host {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .fab-label { display: none; }
+
+  .fab-trigger {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .fab-panel {
+    width: calc(100vw - 32px);
+    max-width: 340px;
+  }
+}
+
 /* ── Panel ───────────────────────────────────────────────── */
 .fab-panel {
   width: 340px;
