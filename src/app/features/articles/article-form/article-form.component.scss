@@ -513,9 +513,10 @@
 }
 
 @media (max-width: 640px) {
-  .page { padding: 16px 16px 80px !important; }
+  .page { padding: 16px 16px 80px !important; overflow-x: hidden; }
 
-  .btn-tpl, .btn-preview { display: none; }
+  ::ng-deep .btn-tpl,
+  ::ng-deep .btn-preview { display: none !important; }
 
   .header-actions {
     position: fixed;
@@ -536,11 +537,19 @@
     overflow-x: auto;
     white-space: nowrap;
     scrollbar-width: none;
+    flex-wrap: nowrap;
     &::-webkit-scrollbar { display: none; }
   }
 
   ::ng-deep .p-editor { height: auto !important; }
   ::ng-deep .ql-container.ql-snow { height: 280px !important; }
+
+  ::ng-deep .p-editor-content,
+  ::ng-deep .ql-editor {
+    overflow-x: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 900px) {
