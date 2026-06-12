@@ -1,6 +1,7 @@
-import { Component, EventEmitter, HostBinding, inject, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 
 interface NavItem {
@@ -33,40 +34,22 @@ interface NavItem {
         }
       </nav>
       <div class="sidebar-footer">
-        <button class="logout-btn" (click)="showLogout.set(true)">
+        <button class="logout-btn" (click)="logoutRequest.emit()">
           <i class="pi pi-sign-out"></i>
           <span>Вийти</span>
         </button>
       </div>
     </aside>
-
-    @if (showLogout()) {
-      <div class="modal-overlay" (click)="showLogout.set(false)">
-        <div class="modal-card" (click)="$event.stopPropagation()">
-          <div class="modal-icon-wrap">
-            <i class="pi pi-sign-out"></i>
-          </div>
-          <h3 class="modal-title">Вийти з системи?</h3>
-          <p class="modal-desc">Ваша сесія буде завершена. Щоб продовжити роботу, потрібно буде увійти знову.</p>
-          <div class="modal-actions">
-            <button class="modal-btn modal-btn-cancel" (click)="showLogout.set(false)">Скасувати</button>
-            <button class="modal-btn modal-btn-confirm" (click)="doLogout()">
-              <i class="pi pi-sign-out"></i> Вийти
-            </button>
-          </div>
-        </div>
-      </div>
-    }
   `,
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
   @Input() open = false;
-  @Output() closeRequest = new EventEmitter<void>();
+  @Output() closeRequest  = new EventEmitter<void>();
+  @Output() logoutRequest = new EventEmitter<void>();
   @HostBinding('class.is-open') get isOpen() { return this.open; }
 
   private auth = inject(AuthService);
-  showLogout   = signal(false);
 
   private allItems: NavItem[] = [
     { label: 'Панель',      icon: 'pi-home',      route: '/dashboard' },
@@ -83,8 +66,5 @@ export class SidebarComponent {
     return this.allItems.filter(item => !item.roles || item.roles.includes(role ?? ''));
   }
 
-  doLogout() {
-    this.showLogout.set(false);
-    this.auth.logout();
-  }
+  doLogout() { this.auth.logout(); }
 }
