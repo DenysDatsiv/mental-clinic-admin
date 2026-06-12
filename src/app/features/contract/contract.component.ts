@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { CheckboxModule } from 'primeng/checkbox';
 import { MessageService } from 'primeng/api';
 import { ContractService } from '../../core/services/contract.service';
 
 @Component({
   selector: 'app-contract',
   standalone: true,
-  imports: [CommonModule, FormsModule, EditorModule, ButtonModule, ToastModule],
+  imports: [CommonModule, FormsModule, EditorModule, ButtonModule, ToastModule, CheckboxModule],
   providers: [MessageService],
   templateUrl: './contract.component.html',
   styleUrl: './contract.component.scss',
@@ -20,6 +21,7 @@ export class ContractComponent implements OnInit {
   private toast = inject(MessageService);
 
   content  = '';
+  visible  = true;
   loading  = signal(false);
   saving   = signal(false);
   lastSaved: string | null = null;
@@ -29,6 +31,7 @@ export class ContractComponent implements OnInit {
     this.svc.get().subscribe({
       next: (doc) => {
         this.content  = doc.content;
+        this.visible  = doc.visible ?? true;
         this.lastSaved = doc.updatedAt;
         this.loading.set(false);
       },
@@ -41,7 +44,7 @@ export class ContractComponent implements OnInit {
 
   save() {
     this.saving.set(true);
-    this.svc.update(this.content).subscribe({
+    this.svc.update(this.content, this.visible).subscribe({
       next: (doc) => {
         this.lastSaved = doc.updatedAt;
         this.toast.add({ severity: 'success', summary: 'Договір збережено', life: 2500 });

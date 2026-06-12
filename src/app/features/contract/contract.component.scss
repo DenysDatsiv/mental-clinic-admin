@@ -25,6 +25,48 @@
   }
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.visibility-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+
+  &.is-visible {
+    border-color: #22c55e;
+    background: #f0fdf4;
+  }
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b7280;
+  white-space: nowrap;
+  cursor: pointer;
+
+  .visibility-toggle.is-visible & {
+    color: #15803d;
+  }
+
+  .pi-eye-slash {
+    color: #9ca3af;
+  }
+}
+
 .last-saved {
   font-size: 0.78rem;
   color: #8a8fa8;

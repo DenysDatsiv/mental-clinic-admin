@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 export interface ContractDoc {
   _id: string;
   content: string;
+  visible: boolean;
   updatedAt: string;
 }
 
@@ -16,7 +17,7 @@ export class ContractService {
 
   get() { return this.http.get<ContractDoc>(this.url); }
 
-  update(content: string) {
-    return this.http.put<ContractDoc>(this.url, { content });
+  update(content: string, visible: boolean) {
+    return this.http.put<ContractDoc>(this.url, { content, visible });
   }
 }

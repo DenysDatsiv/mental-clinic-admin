@@ -10,12 +10,21 @@
         </span>
       }
     </div>
-    <p-button
-      label="Зберегти"
-      icon="pi pi-check"
-      [loading]="saving()"
-      (onClick)="save()"
-    />
+    <div class="header-right">
+      <label class="visibility-toggle" [class.is-visible]="visible">
+        <p-checkbox [(ngModel)]="visible" [binary]="true" inputId="visibleChk" />
+        <span class="toggle-label">
+          <i class="pi" [class.pi-eye]="visible" [class.pi-eye-slash]="!visible"></i>
+          {{ visible ? 'Показується на сайті' : 'Приховано (404)' }}
+        </span>
+      </label>
+      <p-button
+        label="Зберегти"
+        icon="pi pi-check"
+        [loading]="saving()"
+        (onClick)="save()"
+      />
+    </div>
   </div>
 
   @if (loading()) {
