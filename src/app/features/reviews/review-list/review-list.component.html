@@ -105,7 +105,7 @@
 
 <!-- Edit dialog -->
 <p-dialog header="Редагувати відгук" [modal]="true" [visible]="editVisible()"
-          (visibleChange)="editVisible.set($event)" [style]="{width:'520px'}">
+          (visibleChange)="editVisible.set($event)" [style]="{width:'520px'}" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }">
   <div class="edit-fields">
     <div class="field">
       <label>Імʼя</label>

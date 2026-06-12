@@ -212,7 +212,7 @@
 
 <!-- ── Вставити зображення за URL ── -->
 <p-dialog [(visible)]="imageDialogVisible" [modal]="true"
-          [style]="{ width: '480px' }" header="Вставити зображення"
+          [style]="{ width: '480px' }" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }" header="Вставити зображення"
           [draggable]="false" (onHide)="imageUrlError=''">
   <div class="insert-dialog">
     <p class="insert-dialog__hint">
@@ -248,7 +248,7 @@
 
 <!-- ── Важливий блок ── -->
 <p-dialog [(visible)]="importantDialogVisible" [modal]="true"
-          [style]="{ width: '480px' }" header="Важливий блок"
+          [style]="{ width: '480px' }" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }" header="Важливий блок"
           [draggable]="false" (onHide)="importantTextErr=''">
   <div class="insert-dialog">
     <p class="insert-dialog__hint">Текст буде відображено як виділений блок з позначкою "!!"</p>
@@ -275,7 +275,7 @@
 
 <!-- ── Вставити пост соцмереж ── -->
 <p-dialog [(visible)]="socialDialogVisible" [modal]="true"
-          [style]="{ width: '480px' }" header="Вставити пост соцмереж"
+          [style]="{ width: '480px' }" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }" header="Вставити пост соцмереж"
           [draggable]="false" (onHide)="socialImgErr=''">
   <div class="insert-dialog">
     <p class="insert-dialog__hint">
@@ -328,7 +328,7 @@
 
 <!-- ── Вставити YouTube відео ── -->
 <p-dialog [(visible)]="youtubeDialogVisible" [modal]="true"
-          [style]="{ width: '480px' }" header="Вставити YouTube відео"
+          [style]="{ width: '480px' }" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }" header="Вставити YouTube відео"
           [draggable]="false" (onHide)="youtubeUrlError=''">
   <div class="insert-dialog">
     <p class="insert-dialog__hint">

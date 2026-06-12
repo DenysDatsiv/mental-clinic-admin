@@ -198,7 +198,8 @@
 
   <!-- Invite dialog -->
   <p-dialog header="Запросити користувача" [(visible)]="visible" [modal]="true"
-            [style]="{ width: '420px' }" [draggable]="false">
+            [style]="{ width: '420px' }" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }"
+            [draggable]="false">
     <div class="dialog-form">
       <div class="invite-info">
         <i class="pi pi-info-circle"></i>
