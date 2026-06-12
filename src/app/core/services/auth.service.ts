@@ -98,11 +98,11 @@ export class AuthService {
     return this.http.get<User[]>(`${environment.apiUrl}/auth/users`, { withCredentials: true });
   }
 
-  inviteUser(email: string, role: 'admin' | 'user', deliveryEmail?: string) {
+  inviteUser(email: string, role: 'admin' | 'user') {
     const redirectUrl = `${environment.adminUrl}/accept-invite`;
     return this.http.post(
       `${environment.apiUrl}/auth/users/invite`,
-      { email, role, redirectUrl, ...(deliveryEmail ? { deliveryEmail } : {}) },
+      { email, role, redirectUrl },
       { withCredentials: true }
     );
   }
