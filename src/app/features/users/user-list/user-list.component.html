@@ -24,6 +24,12 @@
         <button class="filter-pill" [class.active]="roleFilter() === 'doctor'" (click)="roleFilter.set('doctor')">Лікар</button>
         <button class="filter-pill" [class.active]="roleFilter() === 'admin'"  (click)="roleFilter.set('admin')">Адмін</button>
       </div>
+      <select class="mobile-select" [value]="roleFilter()" (change)="roleFilter.set($any($event.target).value)">
+        <option value="">Усі ролі</option>
+        <option value="user">Користувач</option>
+        <option value="doctor">Лікар</option>
+        <option value="admin">Адмін</option>
+      </select>
     </div>
 
     <div class="filter-divider"></div>
@@ -36,6 +42,12 @@
         <button class="filter-pill status-inactive"[class.active]="statusFilter() === 'inactive'" (click)="statusFilter.set('inactive')">Деактивовані</button>
         <button class="filter-pill status-pending" [class.active]="statusFilter() === 'pending'"  (click)="statusFilter.set('pending')">Очікують</button>
       </div>
+      <select class="mobile-select" [value]="statusFilter()" (change)="statusFilter.set($any($event.target).value)">
+        <option value="">Усі статуси</option>
+        <option value="active">Активні</option>
+        <option value="inactive">Деактивовані</option>
+        <option value="pending">Очікують</option>
+      </select>
     </div>
   </div>
 

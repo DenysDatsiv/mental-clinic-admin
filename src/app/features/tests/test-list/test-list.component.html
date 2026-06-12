@@ -26,6 +26,12 @@
           </button>
         }
       </div>
+      <select class="mobile-select" [value]="typeFilter()" (change)="typeFilter.set($any($event.target).value)">
+        <option value="">Усі типи</option>
+        @for (t of availableTypes(); track t.type) {
+          <option [value]="t.type">{{ t.label }}</option>
+        }
+      </select>
     </div>
   </div>
 

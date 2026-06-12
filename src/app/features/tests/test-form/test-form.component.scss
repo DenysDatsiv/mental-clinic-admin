@@ -198,6 +198,29 @@ textarea.p-textarea { width: 100%; }
   &:hover { background: #fef2f2; border-color: #fca5a5; color: #ef4444; }
 }
 
+@media (max-width: 640px) {
+  .page { padding: 16px !important; }
+
+  .fields-2col { grid-template-columns: 1fr; }
+
+  .interp-table-head { display: none; }
+
+  .interp-row {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .interp-range { flex: 1; }
+
+  .interp-remove { order: 2; }
+
+  .interp-textarea {
+    order: 3;
+    flex: 0 0 100%;
+    min-height: 56px;
+  }
+}
+
 .pairs-hint {
   font-size: 11px;
   color: #9ca3af;

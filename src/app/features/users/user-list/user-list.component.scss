@@ -334,6 +334,8 @@
 }
 // ─────────────────────────────────────────────────────────────
 
+.mobile-select { display: none; }
+
 @media (max-width: 640px) {
   .page { padding: 16px !important; }
 
@@ -352,14 +354,28 @@
   }
 
   .filter-group {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .filter-pills { flex-wrap: nowrap; }
-  .filter-label { flex-shrink: 0; }
+  .filter-pills { display: none; }
+
+  .mobile-select {
+    display: block;
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: #374151;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    &:focus { border-color: #5f75d6; box-shadow: 0 0 0 3px rgba(95,117,214,0.1); }
+  }
 
   // Hide Email, Phone, Created on mobile — keep Name, Role, Status, Actions
   ::ng-deep .p-datatable-thead tr th:nth-child(2),
