@@ -99,7 +99,8 @@ export class AuthService {
   }
 
   inviteUser(email: string, role: 'admin' | 'user') {
-    return this.http.post(`${environment.apiUrl}/auth/users/invite`, { email, role }, { withCredentials: true });
+    const redirectUrl = `${window.location.origin}/accept-invite`;
+    return this.http.post(`${environment.apiUrl}/auth/users/invite`, { email, role, redirectUrl }, { withCredentials: true });
   }
 
   acceptInvite(token: string, data: { name: string; lastName: string; phone: string; password: string }) {

@@ -198,7 +198,9 @@
 
   <!-- Invite dialog -->
   <p-dialog header="Запросити користувача" [(visible)]="visible" [modal]="true"
-            [style]="{ width: '420px' }" [breakpoints]="{ '640px': 'calc(100vw - 24px)' }"
+            [style]="{ width: '420px' }"
+            [breakpoints]="{ '640px': 'calc(100vw - 32px)' }"
+            [contentStyle]="{ padding: '16px' }"
             [draggable]="false">
     <div class="dialog-form">
       <div class="invite-info">
