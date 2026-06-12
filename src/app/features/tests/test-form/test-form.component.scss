@@ -325,7 +325,24 @@ textarea.p-textarea { width: 100%; }
 }
 
 @media (max-width: 640px) {
-  .page { padding: 16px !important; }
+  .page { padding: 16px 16px 88px !important; }
+
+  .header-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+
+    ::ng-deep .p-button { width: 100%; justify-content: center; }
+  }
 
   .fields-2col { grid-template-columns: 1fr; }
 
