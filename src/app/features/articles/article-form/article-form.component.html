@@ -30,13 +30,13 @@
       <h2>{{ isEdit ? 'Редагувати статтю' : 'Нова стаття' }}</h2>
       <div class="header-actions">
         @if (!isEdit) {
-          <p-button label="Змінити шаблон" icon="pi pi-palette" severity="secondary"
+          <p-button class="btn-tpl" label="Змінити шаблон" icon="pi pi-palette" severity="secondary"
                     [text]="true" (onClick)="step.set('template')" />
         }
-        <p-button label="Переглянути" icon="pi pi-eye" severity="secondary"
+        <p-button class="btn-preview" label="Переглянути" icon="pi pi-eye" severity="secondary"
                   (onClick)="openPreview()" />
-        <p-button label="Скасувати" severity="secondary" [text]="true" (onClick)="cancel()" />
-        <p-button label="Зберегти" icon="pi pi-check" [loading]="saving()" (onClick)="save()" />
+        <p-button class="btn-cancel" label="Скасувати" severity="secondary" [text]="true" (onClick)="cancel()" />
+        <p-button class="btn-save" label="Зберегти" icon="pi pi-check" [loading]="saving()" (onClick)="save()" />
       </div>
     </div>
 

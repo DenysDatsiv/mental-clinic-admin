@@ -512,3 +512,40 @@
   margin: 0;
 }
 
+@media (max-width: 640px) {
+  .page { padding: 16px 16px 80px !important; }
+
+  .btn-tpl, .btn-preview { display: none; }
+
+  .header-actions {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+
+    ::ng-deep .p-button { width: 100%; justify-content: center; }
+  }
+
+  ::ng-deep .ql-toolbar.ql-snow {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  ::ng-deep .p-editor { height: auto !important; }
+  ::ng-deep .ql-container.ql-snow { height: 280px !important; }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .page { padding: 20px; }
+
+  .header-actions { flex-wrap: wrap; gap: 6px; }
+}
+
