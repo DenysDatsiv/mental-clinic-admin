@@ -334,6 +334,44 @@
 }
 // ─────────────────────────────────────────────────────────────
 
+@media (max-width: 640px) {
+  .page { padding: 16px !important; }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .filter-divider { display: none; }
+
+  .filter-search {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .filter-group {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .filter-pills { flex-wrap: nowrap; }
+  .filter-label { flex-shrink: 0; }
+
+  // Hide Email, Phone, Created on mobile — keep Name, Role, Status, Actions
+  ::ng-deep .p-datatable-thead tr th:nth-child(2),
+  ::ng-deep .p-datatable-thead tr th:nth-child(3),
+  ::ng-deep .p-datatable-thead tr th:nth-child(6),
+  ::ng-deep .p-datatable-tbody tr td:nth-child(2),
+  ::ng-deep .p-datatable-tbody tr td:nth-child(3),
+  ::ng-deep .p-datatable-tbody tr td:nth-child(6) {
+    display: none;
+  }
+}
+
 .dialog-form { display: flex; flex-direction: column; gap: 18px; padding: 8px 0; }
 
 .invite-info {
