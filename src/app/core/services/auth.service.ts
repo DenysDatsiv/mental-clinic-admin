@@ -99,7 +99,7 @@ export class AuthService {
   }
 
   inviteUser(email: string, role: 'admin' | 'user') {
-    const redirectUrl = `${environment.adminUrl}/accept-invite`;
+    const redirectUrl = environment.adminUrl;
     return this.http.post(
       `${environment.apiUrl}/auth/users/invite`,
       { email, role, redirectUrl },
