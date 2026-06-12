@@ -59,17 +59,29 @@
   grid-template-columns: 1fr 300px;
   gap: 24px;
   align-items: start;
+  min-width: 0;
+  max-width: 100%;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 }
 
-.form-main { display: flex; flex-direction: column; gap: 20px; }
+.form-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
 
 .field {
   display: flex; flex-direction: column; gap: 6px;
+  min-width: 0; max-width: 100%;
   label { font-size: 13px; font-weight: 500; color: #374151; }
+
+  input, textarea { max-width: 100%; box-sizing: border-box; }
 }
 
 .form-sidebar {
@@ -95,6 +107,26 @@
 .cover-preview {
   width: 100%; border-radius: 6px; margin-top: 10px;
   max-height: 160px; object-fit: cover;
+}
+
+/* ── Quill editor base constraints ── */
+::ng-deep .p-editor {
+  max-width: 100%;
+  overflow: hidden;
+}
+::ng-deep .ql-toolbar.ql-snow {
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+::ng-deep .ql-container.ql-snow,
+::ng-deep .ql-editor {
+  max-width: 100%;
+  overflow-x: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ── Important block (inside Quill editor) ── */
@@ -533,23 +565,8 @@
     ::ng-deep .p-button { width: 100%; justify-content: center; }
   }
 
-  ::ng-deep .ql-toolbar.ql-snow {
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
-    flex-wrap: nowrap;
-    &::-webkit-scrollbar { display: none; }
-  }
-
   ::ng-deep .p-editor { height: auto !important; }
   ::ng-deep .ql-container.ql-snow { height: 280px !important; }
-
-  ::ng-deep .p-editor-content,
-  ::ng-deep .ql-editor {
-    overflow-x: hidden;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
 }
 
 @media (min-width: 641px) and (max-width: 900px) {
