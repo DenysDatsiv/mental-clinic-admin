@@ -215,6 +215,15 @@
       </div>
 
       <div class="field">
+        <label>
+          Надіслати лист на
+          <span class="field-hint">(необов'язково — якщо відрізняється від email акаунту)</span>
+        </label>
+        <input pInputText [(ngModel)]="inviteDeliveryEmail" type="email" class="w-full"
+               placeholder="інший@email.com" />
+      </div>
+
+      <div class="field">
         <label>Роль</label>
         <p-selectButton [options]="roleOptions" [(ngModel)]="inviteRole"
                         optionLabel="label" optionValue="value" styleClass="w-full" />

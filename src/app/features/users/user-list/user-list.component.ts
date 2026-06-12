@@ -59,7 +59,8 @@ export class UserListComponent implements OnInit {
   pendingRole    = signal<'admin' | 'user' | 'doctor' | null>(null);
   actionLoading  = signal(false);
 
-  inviteEmail = '';
+  inviteEmail        = '';
+  inviteDeliveryEmail = '';
   inviteRole: 'admin' | 'user' = 'user';
 
   roleOptions = [
@@ -76,8 +77,9 @@ export class UserListComponent implements OnInit {
   }
 
   openDialog() {
-    this.inviteEmail = '';
-    this.inviteRole  = 'user';
+    this.inviteEmail         = '';
+    this.inviteDeliveryEmail = '';
+    this.inviteRole          = 'user';
     this.visible.set(true);
   }
 
@@ -86,9 +88,11 @@ export class UserListComponent implements OnInit {
       this.toast.add({ severity: 'warn', summary: 'Введіть email' }); return;
     }
     this.saving.set(true);
-    this.auth.inviteUser(this.inviteEmail, this.inviteRole).subscribe({
+    const delivery = this.inviteDeliveryEmail.trim() || undefined;
+    this.auth.inviteUser(this.inviteEmail, this.inviteRole, delivery).subscribe({
       next: () => {
-        this.toast.add({ severity: 'success', summary: `Запрошення надіслано на ${this.inviteEmail}`, life: 4000 });
+        const dest = delivery ?? this.inviteEmail;
+        this.toast.add({ severity: 'success', summary: `Запрошення надіслано на ${dest}`, life: 4000 });
         this.visible.set(false);
         this.saving.set(false);
         // add pending placeholder to the list
