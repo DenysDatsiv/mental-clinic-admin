@@ -7,7 +7,8 @@ import { CreateUserDto, User, SessionInfo } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly USER_KEY = 'mc_user';
+  private readonly USER_KEY  = 'mc_user';
+  private readonly TOKEN_KEY = 'mc_token';
 
   // Only user info (not the token) is stored — the HttpOnly cookie holds the token
   private _user = signal<User | null>(this.loadUser());
@@ -27,16 +28,16 @@ export class AuthService {
       )
       .pipe(
         tap((res: any) => {
-          // 2FA disabled — server returns { user } directly, persist immediately
-          if (res.user) this.persistUser(res.user);
+          // 2FA disabled — server returns { user, token } directly, persist immediately
+          if (res.user) this.persistUser(res.user, res.token);
         }),
       );
   }
 
   verifyOtp(userId: string, otp: string) {
     return this.http
-      .post<{ user: User }>(`${environment.apiUrl}/auth/verify-otp`, { userId, otp }, { withCredentials: true })
-      .pipe(tap(res => this.persistUser(res.user)));
+      .post<{ user: User; token: string }>(`${environment.apiUrl}/auth/verify-otp`, { userId, otp }, { withCredentials: true })
+      .pipe(tap(res => this.persistUser(res.user, res.token)));
   }
 
   resendOtp(userId: string) {
@@ -138,13 +139,15 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  private persistUser(user: User) {
+  private persistUser(user: User, token?: string) {
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    if (token) localStorage.setItem(this.TOKEN_KEY, token);
     this._user.set(user);
   }
 
   private clearUser() {
     localStorage.removeItem(this.USER_KEY);
+    localStorage.removeItem(this.TOKEN_KEY);
     this._user.set(null);
   }
 

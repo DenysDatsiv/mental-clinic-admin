@@ -1,7 +1,11 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-// Cookies are sent automatically by the browser when withCredentials is set.
-// We just ensure every request to our API includes credentials.
+// Send cookie (where available) + Authorization header (fallback for iOS Safari / incognito
+// which block cross-site cookies even with SameSite=None).
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req.clone({ withCredentials: true }));
+  const token = localStorage.getItem('mc_token');
+  const headers = token
+    ? req.headers.set('Authorization', `Bearer ${token}`)
+    : req.headers;
+  return next(req.clone({ withCredentials: true, headers }));
 };
