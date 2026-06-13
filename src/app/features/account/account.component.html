@@ -89,8 +89,10 @@
           <div class="contact-input-row">
             <input pInputText [(ngModel)]="newEmail" class="w-full"
                    placeholder="Новий email" (ngModelChange)="emailError.set('')" />
-            <p-button label="Надіслати код" icon="pi pi-send" size="small"
-                      [loading]="emailLoading()" (onClick)="requestEmailChange()" />
+            <div class="send-btn-row">
+              <p-button label="Надіслати код" icon="pi pi-send" size="small"
+                        [loading]="emailLoading()" (onClick)="requestEmailChange()" />
+            </div>
           </div>
 
         } @else {
@@ -135,8 +137,10 @@
           <div class="contact-input-row">
             <input pInputText [(ngModel)]="newPhone" class="w-full"
                    placeholder="+380..." (ngModelChange)="phoneError.set('')" />
-            <p-button label="Надіслати код" icon="pi pi-send" size="small"
-                      [loading]="phoneLoading()" (onClick)="requestPhoneChange()" />
+            <div class="send-btn-row">
+              <p-button label="Надіслати код" icon="pi pi-send" size="small"
+                        [loading]="phoneLoading()" (onClick)="requestPhoneChange()" />
+            </div>
           </div>
 
         } @else {

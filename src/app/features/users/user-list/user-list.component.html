@@ -3,7 +3,7 @@
 
   <div class="page-header">
     <h2>Користувачі</h2>
-    <p-button label="Запросити користувача" icon="pi pi-envelope" (onClick)="openDialog()" />
+    <p-button class="invite-desktop" label="Запросити користувача" icon="pi pi-envelope" (onClick)="openDialog()" />
   </div>
 
   <!-- Filter bar -->
@@ -196,6 +196,81 @@
     </div>
   }
 
+  <!-- Mobile expandable cards -->
+  <div class="mobile-cards">
+    @if (loading()) {
+      @for (r of [1,2,3]; track r) {
+        <div class="mobile-card">
+          <div class="mobile-card__header">
+            <p-skeleton shape="circle" size="36px" />
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+              <p-skeleton height="1rem" width="120px" />
+              <p-skeleton height="0.8rem" width="160px" />
+            </div>
+            <p-skeleton height="1.2rem" width="60px" />
+          </div>
+        </div>
+      }
+    } @else if (filteredUsers().length === 0) {
+      <div class="empty">
+        <i class="pi pi-users" style="font-size:2rem;color:#d1d5db"></i>
+        <p>Користувачів ще немає. Надішліть перше запрошення.</p>
+      </div>
+    } @else {
+      @for (u of filteredUsers(); track u._id) {
+        <div class="mobile-card" [class.is-inactive]="u.status === 'inactive'"
+             [class.is-pending]="u.status === 'pending'">
+          <div class="mobile-card__header" (click)="toggleExpand(u._id)">
+            <div class="mobile-card__avatar">{{ (u.name || u.email)?.charAt(0)?.toUpperCase() }}</div>
+            <div class="mobile-card__meta">
+              <span class="user-name">{{ u.name }}{{ u.lastName ? ' ' + u.lastName : '' }}</span>
+              <span class="mobile-card__email">{{ u.email }}</span>
+            </div>
+            <span [class]="statusClass(u.status)">{{ statusLabel(u.status) }}</span>
+            <i class="pi mobile-card__chevron"
+               [class.pi-chevron-down]="expandedId() !== u._id"
+               [class.pi-chevron-up]="expandedId() === u._id"></i>
+          </div>
+          @if (expandedId() === u._id) {
+            <div class="mobile-card__body">
+              <div class="mobile-card__row">
+                <span class="mobile-card__label">Телефон</span>
+                <span>{{ u.phone || '—' }}</span>
+              </div>
+              <div class="mobile-card__row">
+                <span class="mobile-card__label">Роль</span>
+                @if (u._id !== currentId) {
+                  <select class="role-select" [value]="u.role" (change)="onRoleSelectChange(u, $event)">
+                    <option value="user">Користувач</option>
+                    <option value="doctor">Лікар</option>
+                    <option value="admin">Адмін</option>
+                  </select>
+                } @else {
+                  <span [class]="roleClass(u.role)">{{ roleLabel(u.role) }}</span>
+                }
+              </div>
+              @if (u._id !== currentId) {
+                <div class="mobile-card__actions">
+                  <p-button size="small" styleClass="w-full"
+                            [label]="u.status === 'inactive' ? 'Активувати' : 'Деактивувати'"
+                            [icon]="u.status === 'inactive' ? 'pi pi-check-circle' : 'pi pi-ban'"
+                            (onClick)="promptAction(u, u.status === 'inactive' ? 'activate' : 'deactivate')" />
+                  <p-button size="small" styleClass="w-full" label="Видалити" icon="pi pi-trash"
+                            (onClick)="promptAction(u, 'delete')" />
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Fixed bottom bar (mobile only) -->
+  <div class="invite-mobile-bar">
+    <p-button label="Запросити користувача" icon="pi pi-envelope" styleClass="w-full" (onClick)="openDialog()" />
+  </div>
+
   <!-- Invite dialog -->
   <p-dialog header="Запросити користувача" [(visible)]="visible" [modal]="true"
             [style]="{ width: '420px' }"
@@ -216,8 +291,23 @@
 
       <div class="field">
         <label>Роль</label>
-        <p-selectButton [options]="roleOptions" [(ngModel)]="inviteRole"
-                        optionLabel="label" optionValue="value" styleClass="w-full" />
+        <div class="role-cards">
+          <button type="button" class="role-card" [class.active]="inviteRole === 'user'" (click)="inviteRole = 'user'">
+            <i class="pi pi-user role-card__icon"></i>
+            <span class="role-card__name">Користувач</span>
+            <span class="role-card__hint">Базовий доступ</span>
+          </button>
+          <button type="button" class="role-card" [class.active]="inviteRole === 'doctor'" (click)="inviteRole = 'doctor'">
+            <i class="pi pi-heart role-card__icon"></i>
+            <span class="role-card__name">Лікар</span>
+            <span class="role-card__hint">Медичний персонал</span>
+          </button>
+          <button type="button" class="role-card" [class.active]="inviteRole === 'admin'" (click)="inviteRole = 'admin'">
+            <i class="pi pi-shield role-card__icon"></i>
+            <span class="role-card__name">Адмін</span>
+            <span class="role-card__hint">Повний доступ</span>
+          </button>
+        </div>
       </div>
     </div>
 

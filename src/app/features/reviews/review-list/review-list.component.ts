@@ -12,6 +12,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { RatingModule } from 'primeng/rating';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { SelectModule } from 'primeng/select';
 import { ReviewService, Review } from '../../../core/services/review.service';
 
 @Component({
@@ -20,7 +21,7 @@ import { ReviewService, Review } from '../../../core/services/review.service';
   imports: [
     CommonModule, FormsModule, TableModule, ButtonModule, TagModule,
     ToastModule, ConfirmDialogModule, DialogModule,
-    InputTextModule, TextareaModule, RatingModule, SkeletonModule,
+    InputTextModule, TextareaModule, RatingModule, SkeletonModule, SelectModule,
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './review-list.component.html',
@@ -34,6 +35,9 @@ export class ReviewListComponent implements OnInit {
   reviews  = signal<Review[]>([]);
   loading  = signal(true);
   filter   = signal<string>('all');
+
+  expandedId  = signal<string | null>(null);
+  toggleExpand(id: string) { this.expandedId.update(cur => cur === id ? null : id); }
 
   editVisible = signal(false);
   editItem    = signal<Partial<Review>>({});
@@ -52,6 +56,14 @@ export class ReviewListComponent implements OnInit {
     { label: 'Схвалені',  value: 'approved', color: '#16a34a' },
     { label: 'Відхилені', value: 'rejected',  color: '#dc2626' },
   ];
+
+  filterOptions = computed(() => {
+    const c = this.counts();
+    return this.filterTabs.map(t => ({
+      label: `${t.label} (${c[t.value as keyof typeof c] ?? 0})`,
+      value: t.value,
+    }));
+  });
 
   filtered = computed(() => {
     const f = this.filter();

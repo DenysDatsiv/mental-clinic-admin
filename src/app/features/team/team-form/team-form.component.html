@@ -3,10 +3,6 @@
 
   <div class="page-header">
     <h2>{{ isEdit ? 'Редагувати учасника' : 'Новий учасник команди' }}</h2>
-    <div class="header-actions">
-      <p-button label="Скасувати" severity="secondary" [text]="true" (onClick)="cancel()" />
-      <p-button label="Зберегти" icon="pi pi-check" [loading]="saving()" (onClick)="save()" />
-    </div>
   </div>
 
   @if (loading()) {
@@ -98,6 +94,11 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="form-footer">
+      <p-button label="Скасувати" severity="secondary" [text]="true" (onClick)="cancel()" />
+      <p-button label="Зберегти" icon="pi pi-check" [loading]="saving()" (onClick)="save()" />
     </div>
   }
 </div>

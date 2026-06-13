@@ -59,8 +59,13 @@ export class UserListComponent implements OnInit {
   pendingRole    = signal<'admin' | 'user' | 'doctor' | null>(null);
   actionLoading  = signal(false);
 
+  expandedId = signal<string | null>(null);
+  toggleExpand(id: string) {
+    this.expandedId.update(cur => cur === id ? null : id);
+  }
+
   inviteEmail = '';
-  inviteRole: 'admin' | 'user' = 'user';
+  inviteRole: 'admin' | 'user' | 'doctor' = 'user';
 
   roleOptions = [
     { label: 'Користувач', value: 'user'   },

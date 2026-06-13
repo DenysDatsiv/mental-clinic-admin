@@ -56,9 +56,3 @@
   </div>
 }
 
-<button class="fab-trigger" (click)="toggle()" [class.open]="step() !== 'closed'">
-  <i class="pi" [class.pi-headphones]="step() === 'closed'" [class.pi-times]="step() !== 'closed'"></i>
-  @if (step() === 'closed') {
-    <span class="fab-label">Підтримка</span>
-  }
-</button>

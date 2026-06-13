@@ -72,7 +72,12 @@ nav {
 
 .sidebar-footer {
   padding: 12px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
 }
 
 .logout-btn {
@@ -118,6 +123,14 @@ nav {
 }
 
 // ─────────────────────────────────────────────────────────────
+
+button.nav-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
 
 .nav-item {
   display: flex;

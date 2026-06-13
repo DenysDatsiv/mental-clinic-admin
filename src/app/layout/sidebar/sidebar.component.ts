@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
+import { SupportService } from '../../core/services/support.service';
 
 interface NavItem {
   label: string;
@@ -34,6 +35,11 @@ interface NavItem {
         }
       </nav>
       <div class="sidebar-footer">
+        <button class="support-btn nav-item" (click)="support.toggle(); closeRequest.emit()">
+          <i class="pi pi-headphones"></i>
+          <span>Підтримка</span>
+        </button>
+        <div class="footer-divider"></div>
         <button class="logout-btn" (click)="logoutRequest.emit()">
           <i class="pi pi-sign-out"></i>
           <span>Вийти</span>
@@ -50,6 +56,7 @@ export class SidebarComponent {
   @HostBinding('class.is-open') get isOpen() { return this.open; }
 
   private auth = inject(AuthService);
+  support      = inject(SupportService);
 
   private allItems: NavItem[] = [
     { label: 'Панель',      icon: 'pi-home',      route: '/dashboard' },

@@ -30,8 +30,10 @@ export class ArticleListComponent implements OnInit {
   private toast   = inject(MessageService);
 
   private allArticles = signal<Article[]>([]);
-  loading = signal(true);
-  search  = signal('');
+  loading    = signal(true);
+  search     = signal('');
+  expandedId = signal<string | null>(null);
+  toggleExpand(id: string) { this.expandedId.update(cur => cur === id ? null : id); }
 
   private fuse = computed(() =>
     new Fuse(this.allArticles(), {

@@ -98,7 +98,7 @@ export class AuthService {
     return this.http.get<User[]>(`${environment.apiUrl}/auth/users`, { withCredentials: true });
   }
 
-  inviteUser(email: string, role: 'admin' | 'user') {
+  inviteUser(email: string, role: 'admin' | 'user' | 'doctor') {
     const redirectUrl = environment.adminUrl;
     return this.http.post(
       `${environment.apiUrl}/auth/users/invite`,

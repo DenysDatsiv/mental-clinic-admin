@@ -24,8 +24,10 @@ export class TeamListComponent implements OnInit {
   private router = inject(Router);
   private toast  = inject(MessageService);
 
-  members = signal<TeamMember[]>([]);
-  loading = signal(true);
+  members    = signal<TeamMember[]>([]);
+  loading    = signal(true);
+  expandedId = signal<string | null>(null);
+  toggleExpand(id: string) { this.expandedId.update(cur => cur === id ? null : id); }
 
   // Delete confirm
   deleteTarget  = signal<TeamMember | null>(null);

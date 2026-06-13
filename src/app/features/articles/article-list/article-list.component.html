@@ -4,13 +4,77 @@
 
   <div class="page-header">
     <h2>Статті</h2>
-    <p-button label="Нова стаття" icon="pi pi-plus" (onClick)="create()" />
+    <p-button class="add-desktop" label="Нова стаття" icon="pi pi-plus" (onClick)="create()" />
   </div>
 
   <div class="search-bar">
     <i class="pi pi-search search-icon"></i>
     <input pInputText [ngModel]="search()" (ngModelChange)="search.set($event)"
            placeholder="Пошук статей…" class="search-input" />
+  </div>
+
+  <!-- Mobile expandable cards -->
+  <div class="mobile-cards">
+    @if (loading()) {
+      @for (r of [1,2,3,4,5]; track r) {
+        <div class="mobile-card">
+          <div class="mobile-card__header">
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+              <p-skeleton height="1rem" width="80%" />
+              <p-skeleton height="0.8rem" width="60px" />
+            </div>
+            <p-skeleton height="1.4rem" width="50px" />
+          </div>
+        </div>
+      }
+    } @else if (articles().length === 0) {
+      <div class="empty-mobile">Статей не знайдено.</div>
+    } @else {
+      @for (a of articles(); track a._id) {
+        <div class="mobile-card">
+          <div class="mobile-card__header" (click)="toggleExpand(a._id)">
+            <div class="mobile-card__meta">
+              <span class="mobile-card__name">{{ a.title }}</span>
+              <p-tag [value]="statusLabel(a.status)" [severity]="statusSeverity(a.status)" />
+            </div>
+            <i class="pi mobile-card__chevron"
+               [class.pi-chevron-down]="expandedId() !== a._id"
+               [class.pi-chevron-up]="expandedId() === a._id"></i>
+          </div>
+          @if (expandedId() === a._id) {
+            <div class="mobile-card__body">
+              @if (a.categories?.length) {
+                <div class="mobile-card__row">
+                  <span class="mobile-card__label">Категорії</span>
+                  <span>{{ a.categories!.join(', ') }}</span>
+                </div>
+              }
+              <div class="mobile-card__row">
+                <span class="mobile-card__label">Автор</span>
+                <span>{{ a.authorName || a.author?.name || '—' }}</span>
+              </div>
+              @if (a.publishedAt) {
+                <div class="mobile-card__row">
+                  <span class="mobile-card__label">Опубліковано</span>
+                  <span>{{ a.publishedAt | date:'mediumDate':'':'uk' }}</span>
+                </div>
+              }
+              <div class="mobile-card__actions">
+                <p-button size="small" styleClass="w-full" label="Редагувати" icon="pi pi-pencil"
+                          (onClick)="edit(a._id)" />
+                <p-button size="small" styleClass="w-full" label="Видалити" icon="pi pi-trash"
+                          (onClick)="delete(a)" />
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Fixed bottom bar (mobile only) -->
+  <div class="add-mobile-bar">
+    <p-button label="Нова стаття" icon="pi pi-plus" styleClass="w-full" (onClick)="create()" />
   </div>
 
   <p-table [value]="articles()" [loading]="loading()" [paginator]="true" [rows]="10"

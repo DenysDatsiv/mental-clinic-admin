@@ -18,13 +18,18 @@
           {{ visible ? 'Показується на сайті' : 'Приховано (404)' }}
         </span>
       </label>
-      <p-button
+      <p-button class="save-desktop"
         label="Зберегти"
         icon="pi pi-check"
         [loading]="saving()"
         (onClick)="save()"
       />
     </div>
+  </div>
+
+  <div class="save-mobile-bar">
+    <p-button label="Зберегти" icon="pi pi-check" styleClass="w-full"
+              [loading]="saving()" (onClick)="save()" />
   </div>
 
   @if (loading()) {

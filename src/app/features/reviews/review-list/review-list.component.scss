@@ -16,12 +16,14 @@
   border: 1px solid #fde68a;
 }
 
-/* ── Filter tabs ─────────────────────────────────────────── */
+/* ── Filter tabs (desktop) ───────────────────────────────── */
 .filter-tabs {
   display: flex;
   gap: 8px;
   margin-bottom: 24px;
   flex-wrap: wrap;
+
+  @media (max-width: 600px) { display: none; }
 }
 
 .filter-tab {
@@ -70,6 +72,100 @@
       color: #fff;
     }
   }
+}
+
+/* ── Filter dropdown (mobile) ────────────────────────────── */
+.filter-row {
+  display: none;
+  margin-bottom: 24px;
+
+  @media (max-width: 600px) {
+    display: block;
+
+    ::ng-deep .filter-select { width: 100%; }
+  }
+}
+
+$primary: #5f75d6;
+
+.mobile-cards { display: none; }
+
+@media (max-width: 600px) {
+  .page { padding: 16px; }
+  .reviews-table { display: none; }
+  .mobile-cards  { display: flex; flex-direction: column; gap: 8px; }
+}
+
+/* ── Mobile expandable cards ──────────────────────────────── */
+.mobile-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &.is-pending { border-color: #fde68a; background: #fffdf0; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__avatar {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: rgba($primary, 0.12); color: $primary;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; font-family: 'Inter', sans-serif;
+  }
+
+  &__meta {
+    flex: 1; min-width: 0;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  &__name {
+    font-size: 13px; font-weight: 600; color: #1f2937;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  &__role { font-size: 11px; color: #9ca3af; font-family: 'Inter', sans-serif; }
+
+  &__right {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0;
+  }
+
+  &__chevron { font-size: 12px; color: $primary; flex-shrink: 0; margin-left: 4px; }
+
+  &__body {
+    border-top: 1px solid #f3f4f6;
+    padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  &__text {
+    font-size: 13px; color: #4b5563; line-height: 1.6;
+    font-family: 'Inter', sans-serif; margin: 0;
+  }
+
+  &__actions {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    ::ng-deep .p-button { flex: 1; min-width: calc(50% - 4px); }
+  }
+}
+
+.stars-sm {
+  display: flex; gap: 2px;
+  .pi { color: #f59e0b; font-size: 11px; }
+}
+
+.empty-mobile {
+  text-align: center; color: #9ca3af;
+  font-size: 13px; font-family: 'Inter', sans-serif;
+  padding: 32px 0;
 }
 
 .reviews-table { margin-top: 8px; }

@@ -54,3 +54,10 @@ $heading: #003168;
 .hint { font-size: 11px; color: #9ca3af; }
 
 .toggle-field { flex-direction: row; align-items: center; justify-content: space-between; }
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}

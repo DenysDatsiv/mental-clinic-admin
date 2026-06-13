@@ -7,6 +7,10 @@ $heading: #003168;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, $heading 0%, #1a3a7a 50%, darken($primary, 10%) 100%);
+
+  @media (max-width: 480px) {
+    padding: 0 16px;
+  }
 }
 
 .login-card {

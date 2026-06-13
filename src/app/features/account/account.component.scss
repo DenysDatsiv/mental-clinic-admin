@@ -114,8 +114,13 @@ $heading: #003168;
 
 .contact-input-row {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
+
+  .send-btn-row {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 .contact-error {

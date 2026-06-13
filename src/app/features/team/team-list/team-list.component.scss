@@ -1,4 +1,106 @@
+$primary: #5f75d6;
+$heading: #003168;
+
 .page { padding: 32px; }
+
+.mobile-cards    { display: none; }
+.add-mobile-bar  { display: none; }
+
+@media (max-width: 640px) {
+  .page { padding: 16px 16px 80px !important; }
+
+  .add-desktop { display: none; }
+
+  .add-mobile-bar {
+    display: block;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    padding: 12px 16px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .card { display: none; }
+
+  .mobile-cards { display: flex; flex-direction: column; gap: 8px; }
+}
+
+/* ── Mobile expandable cards ──────────────────────────────── */
+.mobile-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &.is-hidden { background: #fafafa; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__photo {
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover; border: 2px solid #e5e7eb;
+    flex-shrink: 0;
+    &.faded { opacity: 0.4; }
+  }
+
+  &__initials {
+    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    background: rgba($primary, 0.12); color: $primary;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; font-family: 'Inter', sans-serif;
+    &.faded { opacity: 0.35; background: #e5e7eb; color: #9ca3af; }
+  }
+
+  &__meta {
+    flex: 1; min-width: 0;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+
+  &__name {
+    font-size: 13px; font-weight: 600; color: #1f2937;
+    font-family: 'Inter', sans-serif;
+    &.name-hidden { color: #9ca3af; text-decoration: line-through; text-decoration-color: #d1d5db; }
+  }
+
+  &__role { font-size: 11.5px; color: #6b7280; font-family: 'Inter', sans-serif; }
+
+  &__chevron { font-size: 12px; color: $primary; flex-shrink: 0; }
+
+  &__body {
+    border-top: 1px solid #f3f4f6;
+    padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  &__row {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-size: 13px; font-family: 'Inter', sans-serif; color: #374151;
+  }
+
+  &__label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #9ca3af;
+  }
+
+  &__actions {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+    ::ng-deep .p-button { flex: 1; min-width: calc(50% - 4px); }
+  }
+}
+
+.empty-mobile {
+  text-align: center; color: #9ca3af;
+  font-size: 13px; font-family: 'Inter', sans-serif; padding: 32px 0;
+}
 
 .page-header {
   display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;

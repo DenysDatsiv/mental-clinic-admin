@@ -33,6 +33,8 @@ export class TestListComponent implements OnInit {
   loading    = signal(true);
   search     = signal('');
   typeFilter = signal('');
+  expandedId = signal<string | null>(null);
+  toggleExpand(id: string) { this.expandedId.update(cur => cur === id ? null : id); }
 
   private fuse = computed(() =>
     new Fuse(this.allTests(), {

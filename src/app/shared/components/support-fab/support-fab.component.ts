@@ -1,10 +1,12 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { SupportService } from '../../../core/services/support.service';
+import { AuthService } from '../../../core/services/auth.service';
 
-type Step = 'closed' | 'form' | 'success';
+type SubStep = 'form' | 'success';
 
 @Component({
   selector: 'app-support-fab',
@@ -14,19 +16,18 @@ type Step = 'closed' | 'form' | 'success';
   styleUrl: './support-fab.component.scss',
 })
 export class SupportFabComponent {
-  private http = inject(HttpClient);
+  private http    = inject(HttpClient);
+  private support = inject(SupportService);
+  private auth    = inject(AuthService);
 
-  step    = signal<Step>('closed');
+  private localStep = signal<SubStep>('form');
+  step = computed(() => this.support.panelOpen() ? this.localStep() : 'closed');
+
   sending = signal(false);
   error   = signal('');
   message = '';
 
-  toggle() {
-    this.step.update(s => s === 'closed' ? 'form' : 'closed');
-    this.error.set('');
-  }
-
-  close() { this.step.set('closed'); }
+  close() { this.support.close(); }
 
   send() {
     if (!this.message.trim()) {
@@ -36,13 +37,18 @@ export class SupportFabComponent {
     this.sending.set(true);
     this.error.set('');
 
+    const user = this.auth.currentUser();
+    const fullName = [user?.name, user?.lastName].filter(Boolean).join(' ') || 'Admin Panel';
+
     this.http.post(`${environment.apiUrl}/support/message`, {
-      name:    'Admin Panel',
+      name:    fullName,
+      email:   user?.email ?? '',
+      phone:   user?.phone ?? '',
       message: this.message.trim(),
     }).subscribe({
       next: () => {
         this.sending.set(false);
-        this.step.set('success');
+        this.localStep.set('success');
         this.message = '';
       },
       error: () => {
@@ -52,7 +58,5 @@ export class SupportFabComponent {
     });
   }
 
-  again() {
-    this.step.set('form');
-  }
+  again() { this.localStep.set('form'); }
 }

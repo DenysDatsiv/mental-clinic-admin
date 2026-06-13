@@ -38,7 +38,8 @@
         <p-password id="password" [(ngModel)]="password" [feedback]="false"
                     [toggleMask]="true" styleClass="w-full"
                     [inputStyleClass]="'w-full' + (passwordErr() ? ' input-error' : '')"
-                    (ngModelChange)="passwordErr.set(false); clearError()" />
+                    (ngModelChange)="passwordErr.set(false); clearError()"
+                    (keyup.enter)="submit()" />
       </div>
 
       <p-button label="Увійти" icon="pi pi-sign-in" styleClass="w-full"
