@@ -22,7 +22,8 @@ export class AuthService {
     return this.http
       .post<{ userId: string; sentTo: string } | { user: User }>(
         `${environment.apiUrl}/auth/login`,
-        { identifier, password }
+        { identifier, password },
+        { withCredentials: true }
       )
       .pipe(
         tap((res: any) => {
